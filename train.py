@@ -10,6 +10,7 @@ train_results = model.train(
     epochs=20,  # 训练轮次
     imgsz=640,  # 训练图像尺寸
     # device="0",  # 运行设备，例如 device=0 或 device=0,1,2,3 或 device=cpu
+
 )
 
 # # 评估模型在验证集上的性能
