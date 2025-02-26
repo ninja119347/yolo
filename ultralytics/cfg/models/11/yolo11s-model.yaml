@@ -14,21 +14,26 @@ scales: # model compound scaling constants, i.e. 'model=yolo11n-cls.yaml' will c
   l: [1.00, 1.00, 512] # summary: 309 layers, 12937104 parameters, 12937104 gradients, 49.9 GFLOPs
   x: [1.00, 1.50, 512] # summary: 309 layers, 28458544 parameters, 28458544 gradients, 111.1 GFLOPs
 
-# YOLO11n backbone
+# YOLO11n Backbone with Multi-Channel Input and Attention
 backbone:
-  # [from, repeats, module, args]
-  - [-1, 1, Conv, [64, 3, 2]] # 0-P1/2
-  - [-1, 1, Conv, [128, 3, 2]] # 1-P2/4
+  - [-1, 1, Conv, [64, 3, 2]]  # 0-P1/2
+  - [-1, 1, Conv, [128, 3, 2]]  # 1-P2/4
   - [-1, 2, C3k2, [256, False, 0.25]]
-  - [-1, 1, Conv, [256, 3, 2]] # 3-P3/8
+  - [-1, 1, Conv, [256, 3, 2]]  # 3-P3/8
   - [-1, 2, C3k2, [512, False, 0.25]]
-  - [-1, 1, Conv, [512, 3, 2]] # 5-P4/16
+  - [-1, 1, Conv, [512, 3, 2]]  # 5-P4/16
   - [-1, 2, C3k2, [512, True]]
-  - [-1, 1, Conv, [1024, 3, 2]] # 7-P5/32
+  - [-1, 1, Conv, [1024, 3, 2]]  # 7-P5/32
   - [-1, 2, C3k2, [1024, True]]
-  - [-1, 2, CBAM, [1024,7]]  # 从 2 次改成 1 次
-  - [-1, 2, C2PSA, [1024]] # 10
 
-# YOLO11n head
+  # **Attention 机制，用于增强区域特征**
+  - [-1, 2, CBAM, [1024,7]]  # CBAM（通道+空间注意力）
+  - [-1, 1, SEAttention, [512]]  # Squeeze-and-Excitation 注意力机制
+
+  # **增加 PPT 区域特征提取**
+  - [-1, 2, C2PSA, [1024]]  # 专门的 PPT 结构识别
+  - [-1, 1, Conv, [1024, 3, 1]]  # 进一步优化区域特征
+
+# YOLO11n Head for Classification
 head:
-  - [-1, 1, Classify, [nc]] # Classify
+  - [-1, 1, Classify, [nc]]  # Classify is the custom output layer

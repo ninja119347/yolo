@@ -10,8 +10,8 @@ if __name__ == '__main__':
     # 训练模型
     train_results = model.train(
         data="caltech101",  # 数据集 YAML 路径
+        batch = '32',
         epochs=50,  # 训练轮次
-        scale = 0.5,
         imgsz=416,  # 训练图像尺寸
         device="0",  # 运行设备，例如 device=0 或 device=0,1,2,3 或 device=cpu
         workers = 1
