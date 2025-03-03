@@ -58,7 +58,7 @@ torch==2.6.0+cu126
 torchvision==0.21.0+cu126
 tqdm==4.67.1
 transformers==4.49.0
-tritonclient==2.54.0
+tritonclient==2.55.0
 ultralytics_thop==2.0.14
 wandb==0.19.7
 x2paddle==1.6.0
