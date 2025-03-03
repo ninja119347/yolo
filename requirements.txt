@@ -11,7 +11,7 @@ ipython==8.12.3
 jsmin==3.0.1
 lap==0.5.12
 lvis==0.5.3
-matplotlib==3.10.0
+matplotlib==3.10.1
 mct_quantizers==1.5.2
 minify_html==0.15.0
 MNN==3.1.0
