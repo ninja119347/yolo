@@ -7,7 +7,7 @@ csscompressor==0.9.5
 dvclive==3.48.2
 flatbuffers==25.2.10
 hub_sdk==0.0.18
-ipython==8.12.3
+ipython==9.0.2
 jsmin==3.0.1
 lap==0.5.12
 lvis==0.5.3
