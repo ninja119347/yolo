@@ -19,7 +19,7 @@ model_compression_toolkit==2.3.0
 mss==10.0.0
 ncnn==1.0.20241226
 nncf==2.15.0
-numpy==2.2.3
+numpy==2.2.4
 onnx==1.17.0
 onnx2tf==1.26.8
 onnxruntime==1.20.1
