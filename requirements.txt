@@ -1,4 +1,4 @@
-albumentations==2.0.4
+albumentations==2.0.6
 beautifulsoup4==4.13.3
 clip==0.2.0
 comet_ml==3.49.3
