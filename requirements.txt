@@ -11,7 +11,7 @@ ipython==8.12.3
 jsmin==3.0.1
 lap==0.5.12
 lvis==0.5.3
-matplotlib==3.10.0
+matplotlib==3.9.4
 mct_quantizers==1.5.2
 minify_html==0.15.0
 MNN==3.1.0
@@ -19,9 +19,9 @@ model_compression_toolkit==2.3.0
 mss==10.0.0
 ncnn==1.0.20241226
 nncf==2.15.0
-numpy==2.2.3
+numpy==2.0.2
 onnx==1.17.0
-onnx2tf==1.26.8
+# onnx2tf==1.26.8
 onnxruntime==1.20.1
 onnxslim==0.1.48
 opencv_python==4.11.0.86
