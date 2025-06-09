@@ -70,8 +70,8 @@ tflite_runtime==2.14.0
 tflite_support==0.4.4
 # torch==2.6.0+cu126  # 特定CUDA版本在PyPI上不可用
 torch==2.6.0
-# torchvision==0.21.0+cu126  # 特定CUDA版本在PyPI上不可用
-torchvision==0.21.0
+# torchvision==0.22.1+cu126  # 特定CUDA版本在PyPI上不可用
+torchvision==0.22.1
 tornado==6.4.2
 tqdm==4.67.1
 traitlets==5.14.3
