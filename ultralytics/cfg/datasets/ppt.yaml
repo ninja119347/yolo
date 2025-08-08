@@ -1,0 +1,13 @@
+path: /home/visuals/Code/datasets/ppt_dataset  # 数据集根目录路径
+train: train  # 训练集相对路径
+# val: val  # 验证集相对路径
+test: test  # 测试集相对路径，可选
+
+# 分类类别名称
+names:
+  0: class0  # 第一个类别
+  1: class1  # 第二个类别
+
+# 基本配置
+nc: 2  # 类别数量
+task: classify  # 分类任务

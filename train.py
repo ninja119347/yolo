@@ -17,7 +17,8 @@ if __name__ == '__main__':
     # 使用DEBUG参数开启更多日志
     # 训练模型
     train_results = model.train(
-        data="caltech101",  # 数据集 YAML 路径
+        data="ppt_dataset",  # 数据集 YAML 路径
+        # data="/home/visuals/Code/yolo/ultralytics/cfg/datasets/ppt.yaml",  # 数据集 YAML 路径
         batch=64,  # 降低批量大小以减少内存使用和可能的维度问题
         epochs=100,  # 训练轮次
         imgsz=416,  # 训练图像尺寸
