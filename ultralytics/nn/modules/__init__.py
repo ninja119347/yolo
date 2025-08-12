@@ -88,7 +88,7 @@ from .transformer import (
     TransformerEncoderLayer,
     TransformerLayer,
 )
-
+from .multi_region import MultiRegionExpand
 __all__ = (
     "Conv",
     "Conv2",
@@ -162,4 +162,5 @@ __all__ = (
     "TorchVision",
     "Index",
     "A2C2f",
+    "MultiRegionExpand",
 )

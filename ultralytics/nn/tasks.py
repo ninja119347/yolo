@@ -76,6 +76,7 @@ from ultralytics.utils.loss import (
     v8SegmentationLoss,
 )
 from ultralytics.nn.SEAttention import SEAttention
+from ultralytics.nn.modules.multi_region import MultiRegionExpand
 from ultralytics.utils.ops import make_divisible
 from ultralytics.utils.plotting import feature_visualization
 from ultralytics.utils.torch_utils import (
@@ -1076,8 +1077,12 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             if c2 != nc:
                 c2 = make_divisible(min(c2, max_channels) * width, 8)
             args = [c1, *args[1:]]
-        elif m in {SEAttention} :
-            agrs = [ch[f], *args]
+        elif m in {SEAttention}:
+            args = [ch[f], *args]
+            c2 = ch[f]  # 添加输出通道设置
+        elif m is MultiRegionExpand:
+            # Custom layer: expands 3 input channels to 15 (5 regions * 3 channels)
+            c2 = 15
         elif m in frozenset({TorchVision, Index}):
             c2 = args[0]
             c1 = ch[f]

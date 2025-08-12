@@ -17,10 +17,11 @@ if __name__ == '__main__':
     # 使用DEBUG参数开启更多日志
     # 训练模型
     train_results = model.train(
-        data="ppt_dataset",  # 数据集 YAML 路径
+        # data="ppt_dataset",  # 数据集 YAML 路径
+        data="ppt_dataset_balanced",  # 数据集 YAML 路径
         # data="/home/visuals/Code/yolo/ultralytics/cfg/datasets/ppt.yaml",  # 数据集 YAML 路径
         batch=64,  # 降低批量大小以减少内存使用和可能的维度问题
-        epochs=100,  # 训练轮次
+        epochs=50,  # 训练轮次
         imgsz=416,  # 训练图像尺寸
         device="0",  # 运行设备
         workers=10,  # 减少工作线程数，避免资源竞争
@@ -36,12 +37,12 @@ if __name__ == '__main__':
         # 学习率预热
         warmup_epochs=5.0,  # 增加预热轮次
         # 数据增强
-        multi_scale=True,  # 启用多尺度训练
+        multi_scale=False,  # 启用多尺度训练
         
         # 其他优化
         patience=20,  # 早停策略，20个epoch无改善则停止
         plots=True,  # 生成训练图表
-        
+        amp=False,              # 先关
     )
 
     # # 评估模型在验证集上的性能
