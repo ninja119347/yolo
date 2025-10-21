@@ -946,7 +946,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
         depth, width, max_channels = scales[scale]
 
     if act:
-        Conv.default_act = eval(act)  # redefine default activation, i.e. Conv.default_act = torch.nn.SiLU()
+        Conv.default_act = nn.Hardswish()  # redefine default activation, i.e. Conv.default_act = torch.nn.Hardswish()
         if verbose:
             LOGGER.info(f"{colorstr('activation:')} {act}")  # print
 

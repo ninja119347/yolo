@@ -1,0 +1,25 @@
+{
+    "version": "v7",
+    "quantizer_targets": {
+        "constant_weights": [],
+        "constant_params": [],
+        "activations": []
+    },
+    "quantizer_groups": [],
+    "generator_settings": {
+        "activations_bitwidth": 8,
+        "weights_bitwidth": null,
+        "params_bitwidth": null,
+        "ignore_union_quantizer_targets": true,
+        "use_activations_symmetric_quantization": false,
+        "use_weights_symmetric_quantization": true,
+        "use_params_symmetric_quantization": false,
+        "activations_quantizer_type": "EMAQuantizer",
+        "weights_quantizer_type": "LastValueQuantizer",
+        "params_quantizer_type": "LastValueQuantizer",
+        "use_power_of_two_quantization_scale": false,
+        "power_of_two_quantization_scale_rounding_type": "RoundUp",
+        "use_per_output_channel_quantization": true,
+        "mixed_precision_search_space": []
+    }
+}

@@ -278,6 +278,14 @@ class Pose(Detect):
             y[:, 1::ndim] = (y[:, 1::ndim] * 2.0 + (self.anchors[1] - 0.5)) * self.strides
             return y
 
+# ✅ 包装类：行为像Linear，但用1×1卷积实现
+class ConvAsLinear(nn.Conv2d):
+    def __init__(self, in_features, out_features, bias=True):
+        super().__init__(in_channels=in_features, out_channels=out_features,
+                         kernel_size=1, stride=1, padding=0, bias=bias)
+        # 让YOLO内部reshape_outputs访问out_features时不报错
+        self.in_features = in_features
+        self.out_features = out_features
 
 class Classify(nn.Module):
     """YOLO classification head, i.e. x(b,c1,20,20) to x(b,c2)."""
@@ -291,13 +299,19 @@ class Classify(nn.Module):
         self.conv = Conv(c1, c_, k, s, p, g)
         self.pool = nn.AdaptiveAvgPool2d(1)  # to x(b,c_,1,1)
         self.drop = nn.Dropout(p=0.0, inplace=True)
-        self.linear = nn.Linear(c_, c2)  # to x(b,c2)
+        # self.linear = nn.Linear(c_, c2)  # to x(b,c2)
+        # ✅ 用1×1卷积替代Linear，功能等价但TFLite会识别为标准Conv2D
+        self.linear = ConvAsLinear(c_, c2, bias=True)
 
     def forward(self, x):
         """Performs a forward pass of the YOLO model on input image data."""
         if isinstance(x, list):
             x = torch.cat(x, 1)
-        x = self.linear(self.drop(self.pool(self.conv(x)).flatten(1)))
+        # x = self.linear(self.drop(self.pool(self.conv(x)).flatten(1)))
+        # 改为卷积形式：
+        x = self.pool(self.conv(x))
+        x = self.drop(x)
+        x = self.linear(x).flatten(1)  # 和原版Linear一致
         if self.training:
             return x
         y = x.softmax(1)  # get final output

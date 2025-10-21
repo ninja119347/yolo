@@ -1,0 +1,44 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+
+# YOLOv5-cls with YOLOv11 enhancements for PPT classification
+# Model docs: https://docs.ultralytics.com/models/yolov5
+# Task docs: https://docs.ultralytics.com/tasks/classify
+
+# Parameters
+nc: 2 # number of classes
+scales: # model compound scaling constants
+  # [depth, width, max_channels]
+  n: [0.33, 0.25, 1024] # YOLOv5n-cls
+  s: [0.33, 0.50, 1024] # YOLOv5s-cls
+  m: [0.67, 0.75, 1024] # YOLOv5m-cls
+  l: [1.00, 1.00, 1024] # YOLOv5l-cls
+  x: [1.00, 1.25, 1024] # YOLOv5x-cls
+
+# YOLOv5 Backbone with YOLOv11 enhancements
+backbone:
+  # **Multi-Channel 输入扩展模块 (YOLOv11 enhancement)**
+  - [-1, 1, MultiRegionExpand, []]
+  
+  # Standard YOLOv5 backbone
+  - [-1, 1, Conv, [64, 6, 2, 2]]  # 1-P1/2
+  - [-1, 1, Conv, [128, 3, 2]]    # 2-P2/4  
+  - [-1, 3, C3, [128]]
+  - [-1, 1, Conv, [256, 3, 2]]    # 4-P3/8
+  - [-1, 6, C3, [256]]
+  - [-1, 1, Conv, [512, 3, 2]]    # 6-P4/16
+  - [-1, 9, C3, [512]]
+  - [-1, 1, Conv, [1024, 3, 2]]   # 8-P5/32
+  - [-1, 3, C3, [1024]]
+  - [-1, 1, SPPF, [1024, 5]]      # 10
+
+  # **Attention 机制，用于增强区域特征 (YOLOv11 enhancement)**
+  - [-1, 2, CBAM, [1024, 7]]  # CBAM（通道+空间注意力）
+  - [-1, 1, SEAttention, [512]]  # Squeeze-and-Excitation 注意力机制
+
+  # **增加 PPT 区域特征提取 (YOLOv11 enhancement)**
+  - [-1, 2, C2PSA, [1024]]  # 专门的 PPT 结构识别
+  - [-1, 1, Conv, [1024, 3, 1]]  # 进一步优化区域特征
+
+# YOLOv5 Head for Classification
+head:
+  - [-1, 1, Classify, [nc]]  # Classify

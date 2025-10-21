@@ -666,7 +666,7 @@ def profile(input, ops, n=10, device=None, max_num_obj=0):
 
         input = torch.randn(16, 3, 640, 640)
         m1 = lambda x: x * torch.sigmoid(x)
-        m2 = nn.SiLU()
+        m2 = nn.Hardswish()
         profile(input, [m1, m2], n=100)  # profile over 100 iterations
         ```
     """
